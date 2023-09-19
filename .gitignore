@@ -5,3 +5,4 @@ dist
 fav-effects.txt
 .venv
 .vscode
+__pycache__

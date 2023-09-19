@@ -192,6 +192,9 @@ def process_variant_x01(msg):
             if area_found == False:
                 ppi("Darts-thrown: " + val + " - NOT configured!")
 
+    elif msg["event"] == "schnapszahl" and SCHNAPSZAHL_EFFECTS is not None:
+        control_wled(SCHNAPSZAHL_EFFECTS, "Schnapszahl!")
+
     elif msg["event"] == "darts-pulled":
         if EFFECT_DURATION == 0:
             control_wled(IDLE_EFFECT, "Darts-pulled", bss_requested=False)
@@ -526,6 +529,14 @@ if __name__ == "__main__":
         nargs="*",
         help="WLED effect-definition when bust occurs",
     )
+    ap.add_argument(
+        "-SZ",
+        "--schnapszahl_effects",
+        default=None,
+        required=False,
+        nargs="*",
+        help="WLED effect-definition when schnapszahl occurs",
+    )
     for v in range(0, 181):
         val = str(v)
         ap.add_argument(
@@ -625,6 +636,7 @@ if __name__ == "__main__":
     MATCH_WON_EFFECTS = parse_effects_argument(args["match_won_effects"])
     BUSTED_EFFECTS = parse_effects_argument(args["busted_effects"])
     HIGH_FINISH_EFFECTS = parse_effects_argument(args["high_finish_effects"])
+    SCHNAPSZAHL_EFFECTS = parse_effects_argument(args["schnapszahl_effects"])
 
     SCORE_EFFECTS = dict()
     for v in range(0, 181):
